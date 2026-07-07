@@ -13,7 +13,8 @@ Anthropic Claude is the first-class backend (official SDK, adaptive thinking, ef
 ## Install & start a project in one command
 
 ```bash
-pip install -e .
+pip install fastagent-framework      # from PyPI (imports as `fastagent`)
+# or from a clone: pip install -e .
 # auth: set ANTHROPIC_API_KEY, or run `ant auth login`
 
 fastagent init my-agent-project     # scaffolds fastagent.yaml, tools.py, .env.example
@@ -276,6 +277,18 @@ handful of runtime dependencies (anthropic, pydantic, PyYAML, httpx) are all
 MIT/BSD-licensed, are installed by pip, and are not vendored here — see
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-> **Before publishing:** an unrelated project named "fast-agent" already exists
-> on PyPI (`fast-agent-mcp`). Pick a distinct package name if you plan to
-> publish or promote this publicly.
+The PyPI distribution is named **`fastagent-framework`** (the bare names
+`fastagent` and `fastagents` are unrelated existing packages); the import
+remains `import fastagent`.
+
+## Releasing
+
+Releases publish to PyPI automatically via
+[publish.yml](.github/workflows/publish.yml) using PyPI **Trusted Publishing**
+(OIDC — no API tokens stored anywhere):
+
+1. One-time: on pypi.org → *Publishing*, add a pending publisher for project
+   `fastagent-framework` pointing at this repo and `publish.yml`, environment `pypi`.
+2. Bump `version` in `pyproject.toml` and update `CHANGELOG.md`.
+3. Create a GitHub Release with tag `vX.Y.Z` — CI builds, validates
+   (`twine check` + offline tests), and publishes.

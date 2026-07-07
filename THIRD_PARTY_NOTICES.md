@@ -26,7 +26,8 @@ Notes:
 - Product names (Anthropic, Claude, OpenAI, Ollama, etc.) are trademarks of
   their respective owners and are used only to identify interoperability.
 
-**Naming caution before publishing:** an unrelated open-source project named
-"fast-agent" (PyPI: `fast-agent-mcp`) already exists. If you intend to publish
-this package to PyPI or promote it publicly, choose a distinct name to avoid
-package-name and trademark confusion.
+**Naming:** unrelated packages named `fastagent`, `fastagents`, and
+`fast-agent-mcp` exist on PyPI. To avoid collision and confusion, this project
+publishes under the distinct distribution name **`fastagent-framework`**
+(import name: `fastagent`). This project is not affiliated with any of those
+packages.

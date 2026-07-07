@@ -19,6 +19,8 @@ from fastagent.testing import AgentTester, Expectation, TestCase
 from fastagent.tools import Tool, registry, tool
 
 __version__ = "0.1.0"
+__author__ = "Tarun Vangari"
+__license__ = "MIT"
 
 __all__ = [
     "Agent",

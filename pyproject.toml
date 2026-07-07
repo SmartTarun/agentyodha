@@ -3,7 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "fastagent"
+# Distribution name: "fastagent" is already taken on PyPI, so the package
+# publishes as fastagent-framework while the import stays `import fastagent`.
+name = "fastagent-framework"
 version = "0.1.0"
 description = "A lightweight, configuration-first framework for building, testing, and securing LLM-powered agents"
 readme = "README.md"
