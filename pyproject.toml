@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fastagent"
+version = "0.1.0"
+description = "A lightweight, configuration-first framework for building, testing, and securing LLM-powered agents"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Tarun Vangari", email = "tarun.vangari@gmail.com" }]
+requires-python = ">=3.10"
+keywords = ["llm", "agents", "ai", "anthropic", "claude", "openai-compatible", "framework", "guardrails", "testing"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "anthropic>=0.90.0",
+    "pydantic>=2.7",
+    "PyYAML>=6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/YOURUSER/fastagent"
+Repository = "https://github.com/YOURUSER/fastagent"
+Issues = "https://github.com/YOURUSER/fastagent/issues"
+Changelog = "https://github.com/YOURUSER/fastagent/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+fastagent = "fastagent.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["fastagent*"]
+
+[tool.setuptools.package-data]
+fastagent = ["py.typed"]
