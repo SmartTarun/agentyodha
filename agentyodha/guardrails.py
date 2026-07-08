@@ -4,7 +4,7 @@ Guards run on user input before it reaches the model, and on model output
 before it reaches the caller. Each guard returns a GuardResult; a guard can
 pass, flag, transform (redact/truncate), or block the text entirely.
 
-Configured declaratively in fastagent.yaml:
+Configured declaratively in agentyodha.yaml:
 
     agents:
       assistant:

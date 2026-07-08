@@ -1,6 +1,6 @@
-# Contributing to fastagent
+# Contributing to agentyodha
 
-Thanks for your interest! fastagent aims to stay **small, configuration-first,
+Thanks for your interest! agentyodha aims to stay **small, configuration-first,
 and secure by default**. Contributions that add power without adding required
 complexity are the ones most likely to land.
 
@@ -8,7 +8,7 @@ complexity are the ones most likely to land.
 
 ```bash
 git clone <your-fork>
-cd fastagent
+cd agentyodha
 pip install -e .
 python tests/test_smoke.py     # must pass offline, with no API key
 ```

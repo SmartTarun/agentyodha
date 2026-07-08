@@ -20,18 +20,18 @@ from typing import Any, Callable, Optional, Type, TypeVar
 
 from pydantic import BaseModel
 
-from fastagent.agent_security import (
+from agentyodha.agent_security import (
     AuditLog,
     BudgetExceeded,
     BudgetTracker,
     PermissionPolicy,
     validate_tool_input,
 )
-from fastagent.config import AgentConfig
-from fastagent.guardrails import GuardResult, build_guards, run_guards
-from fastagent.memory import ConversationStore
-from fastagent.providers import AnthropicProvider, CompletionRequest, ModelProvider, ProviderResponse
-from fastagent.tools import Tool, registry
+from agentyodha.config import AgentConfig
+from agentyodha.guardrails import GuardResult, build_guards, run_guards
+from agentyodha.memory import ConversationStore
+from agentyodha.providers import AnthropicProvider, CompletionRequest, ModelProvider, ProviderResponse
+from agentyodha.tools import Tool, registry
 
 T = TypeVar("T", bound=BaseModel)
 

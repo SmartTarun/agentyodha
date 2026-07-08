@@ -9,29 +9,29 @@ from typing import Literal, Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from fastagent.agent import AgentResult
-from fastagent.agent_security import (
+from agentyodha.agent import AgentResult
+from agentyodha.agent_security import (
     AuditLog,
     BudgetExceeded,
     BudgetTracker,
     PermissionPolicy,
     validate_tool_input,
 )
-from fastagent.config import load_config
-from fastagent.guardrails import build_guards, run_guards
-from fastagent.providers.openai_compat import (
+from agentyodha.config import load_config
+from agentyodha.guardrails import build_guards, run_guards
+from agentyodha.providers.openai_compat import (
     from_openai_message,
     to_openai_messages,
     to_openai_tools,
 )
-from fastagent.security import (
+from agentyodha.security import (
     EndpointSecurityError,
     assert_no_inline_secrets,
     validate_base_url,
     validate_tls,
 )
-from fastagent.testing import AgentTester, Expectation
-from fastagent.tools import Tool, build_input_schema
+from agentyodha.testing import AgentTester, Expectation
+from agentyodha.tools import Tool, build_input_schema
 
 
 def test_schema_generation():
@@ -60,7 +60,7 @@ def test_schema_generation():
 
 
 def test_config_loading():
-    config = load_config(Path(__file__).resolve().parents[1] / "fastagent.yaml")
+    config = load_config(Path(__file__).resolve().parents[1] / "agentyodha.yaml")
     assistant = config.get_agent("assistant")
     assert assistant.model == "claude-opus-4-8"
     assert assistant.effort == "high"          # from defaults
@@ -247,8 +247,8 @@ def test_audit_log(tmp_dir: Path | None = None):
 def test_http_endpoint_tools():
     import httpx
 
-    from fastagent.http_tools import _LazyClient, build_endpoint_tools
-    from fastagent.tools import registry as tool_registry
+    from agentyodha.http_tools import _LazyClient, build_endpoint_tools
+    from agentyodha.tools import registry as tool_registry
 
     spec = {
         "demo_api": {

@@ -5,12 +5,12 @@ Run:  python -m examples.quickstart   (requires ANTHROPIC_API_KEY or `ant auth l
 
 from pydantic import BaseModel
 
-from fastagent import Agent, load_config
+from agentyodha import Agent, load_config
 import examples.tools  # noqa: F401  (registers @tool functions)
 
 
 def main() -> None:
-    config = load_config("fastagent.yaml")
+    config = load_config("agentyodha.yaml")
     agent = Agent(
         config.get_agent("assistant"),
         on_text=lambda delta: print(delta, end="", flush=True),

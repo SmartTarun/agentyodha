@@ -1,6 +1,6 @@
-# fastagent
+# agentyodha
 
-[![CI](https://github.com/YOURUSER/fastagent/actions/workflows/ci.yml/badge.svg)](https://github.com/YOURUSER/fastagent/actions/workflows/ci.yml)
+[![CI](https://github.com/SmartTarun/agentyodha/actions/workflows/ci.yml/badge.svg)](https://github.com/SmartTarun/agentyodha/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 
@@ -13,19 +13,19 @@ Anthropic Claude is the first-class backend (official SDK, adaptive thinking, ef
 ## Install & start a project in one command
 
 ```bash
-pip install fastagent-framework      # from PyPI (imports as `fastagent`)
+pip install agentyodha      # from PyPI (imports as `agentyodha`)
 # or from a clone: pip install -e .
 # auth: set ANTHROPIC_API_KEY, or run `ant auth login`
 
-fastagent init my-agent-project     # scaffolds fastagent.yaml, tools.py, .env.example
+agentyodha init my-agent-project     # scaffolds agentyodha.yaml, tools.py, .env.example
 cd my-agent-project
-fastagent chat assistant --tools-module tools
+agentyodha chat assistant --tools-module tools
 ```
 
 ## 1. Define providers and agents in YAML
 
 ```yaml
-# fastagent.yaml
+# agentyodha.yaml
 providers:                                 # any LLM behind one interface
   anthropic:
     type: anthropic                        # official SDK; exists implicitly too
@@ -47,7 +47,7 @@ agents:
     provider: anthropic                    # or local / openai / any key above
     system: You are a precise, helpful assistant.
     tools: [calculate, get_weather]
-    memory_dir: .fastagent/sessions        # persist conversations
+    memory_dir: .agentyodha/sessions        # persist conversations
     guardrails:
       input:
         - type: prompt_injection           # block injection attempts
@@ -63,7 +63,7 @@ agents:
 Type hints + docstring become the JSON schema automatically:
 
 ```python
-from fastagent import tool
+from agentyodha import tool
 from typing import Literal
 
 @tool
@@ -118,18 +118,18 @@ guardrails, and the audit trail like any other tool.
 ## 4. Run
 
 ```bash
-fastagent list                                        # show configured agents
-fastagent chat assistant --tools-module examples.tools --verbose
-fastagent chat assistant --approve                    # human-in-the-loop tool approval
+agentyodha list                                        # show configured agents
+agentyodha chat assistant --tools-module examples.tools --verbose
+agentyodha chat assistant --approve                    # human-in-the-loop tool approval
 ```
 
 Or from Python:
 
 ```python
-from fastagent import Agent, load_config
+from agentyodha import Agent, load_config
 import examples.tools
 
-config = load_config("fastagent.yaml")
+config = load_config("agentyodha.yaml")
 agent = config.build_agent("assistant", on_text=print)
 result = agent.run("What's 1847 * 392?")
 print(result.text, result.tool_calls, result.usage)
@@ -157,7 +157,7 @@ tests:
 ```
 
 ```bash
-fastagent test assistant --tools-module examples.tools
+agentyodha test assistant --tools-module examples.tools
 ```
 
 Available checks: `contains`, `not_contains`, `regex`, `min_chars` / `max_chars`, `uses_tool`, `max_iterations`, `not_refused`, and `judge` (natural-language criterion graded by an LLM).
@@ -167,7 +167,7 @@ Available checks: `contains`, `not_contains`, `regex`, `min_chars` / `max_chars`
 Like Swagger UI, but for agents. Explore every configured agent (model, tools, guardrails), send prompts, and inspect the full result — streamed text, tool calls, loop iterations, guardrail verdicts, token usage — then run the test suite with one click.
 
 ```bash
-fastagent serve --tools-module examples.tools
+agentyodha serve --tools-module examples.tools
 # -> http://127.0.0.1:8420/?token=...
 ```
 
@@ -175,7 +175,7 @@ Zero extra dependencies (stdlib HTTP server). Binds to localhost by default — 
 
 ## 7. Security: the LLM endpoint
 
-The connection between fastagent and any model endpoint is policy-enforced (`fastagent/security.py`):
+The connection between agentyodha and any model endpoint is policy-enforced (`agentyodha/security.py`):
 
 | Policy | Enforcement |
 |---|---|
@@ -183,11 +183,11 @@ The connection between fastagent and any model endpoint is policy-enforced (`fas
 | HTTPS required | Remote `base_url` must be `https://`. Plain `http://` is allowed only for loopback hosts (local Ollama/vLLM). |
 | TLS verification | On by default; `verify_tls: false` is honored **only** for loopback endpoints. |
 | Bounded requests | Every outbound call has a connect/read timeout and a response-size cap; error messages are secret-redacted before logging. |
-| Playground auth | `fastagent serve` generates a per-run session token; every API call requires it (Bearer header or `?token=`), so nothing else on the machine can drive your agents or spend your quota. Binds to 127.0.0.1. `--no-auth` to opt out. |
+| Playground auth | `agentyodha serve` generates a per-run session token; every API call requires it (Bearer header or `?token=`), so nothing else on the machine can drive your agents or spend your quota. Binds to 127.0.0.1. `--no-auth` to opt out. |
 
 ## 8. Security: the agents themselves
 
-Beyond the endpoint, each agent is individually sandboxed (`fastagent/agent_security.py`), all from YAML:
+Beyond the endpoint, each agent is individually sandboxed (`agentyodha/agent_security.py`), all from YAML:
 
 ```yaml
 agents:
@@ -201,7 +201,7 @@ agents:
       max_tool_calls_per_run: 10
       max_tokens_per_session: 500000
       max_runs_per_minute: 20
-    audit_dir: .fastagent/audit      # tamper-evident audit trail
+    audit_dir: .agentyodha/audit      # tamper-evident audit trail
 ```
 
 | Layer | What it does |
@@ -209,7 +209,7 @@ agents:
 | **Permissions** | `allow` / `deny` / `ask` per tool. `deny` never executes; `ask` requires a connected approver (CLI `--approve` or your callback) and is **denied, not silently allowed**, when none exists. |
 | **Budgets** | Caps tool calls per run, tokens per session, and runs per minute. A run over budget is blocked with `stop_reason: budget_exceeded`; a loop over its tool budget gets error results telling the model to wrap up. |
 | **Input validation** | Tool inputs are untrusted model output — every call is validated against the tool's declared schema (required/unknown parameters) before anything executes. |
-| **Audit trail** | Every run, guard verdict, tool decision, and outcome is appended to a JSONL log where each record is SHA-256 hash-chained to the previous one. `fastagent audit .fastagent/audit` re-walks the chain and reports any altered, inserted, or reordered record. |
+| **Audit trail** | Every run, guard verdict, tool decision, and outcome is appended to a JSONL log where each record is SHA-256 hash-chained to the previous one. `agentyodha audit .agentyodha/audit` re-walks the chain and reports any altered, inserted, or reordered record. |
 
 ## 9. Security: guardrails
 
@@ -222,7 +222,7 @@ Guards run on input (before the model sees it) and output (before the caller see
 | `pii_redact` | Redacts emails, phone numbers, card numbers, SSNs |
 | `max_length` | Truncates over-long output |
 
-Guards are a first line of defense — combine with least-privilege tools, `deny`/`ask` permissions, and budgets for anything destructive. Custom guards: subclass `fastagent.guardrails.Guard`.
+Guards are a first line of defense — combine with least-privilege tools, `deny`/`ask` permissions, and budgets for anything destructive. Custom guards: subclass `agentyodha.guardrails.Guard`.
 
 ## Structured output
 
@@ -239,7 +239,7 @@ contact = agent.extract("Reach Jane Doe at jane@example.com", Contact)  # valida
 ## Project layout
 
 ```
-fastagent/
+agentyodha/
 ├── agent.py                     # provider-agnostic agentic loop
 ├── agent_security.py            # permissions, budgets, hash-chained audit log
 ├── providers/
@@ -277,9 +277,11 @@ handful of runtime dependencies (anthropic, pydantic, PyYAML, httpx) are all
 MIT/BSD-licensed, are installed by pip, and are not vendored here — see
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-The PyPI distribution is named **`fastagent-framework`** (the bare names
-`fastagent` and `fastagents` are unrelated existing packages); the import
-remains `import fastagent`.
+The name **agentyodha** combines *agent* with *yodha* (योद्धा, Sanskrit for
+"warrior"). PyPI distribution and import name are both `agentyodha`. This
+project was previously developed under the working name "fastagent"; it was
+renamed because unrelated packages named `fastagent`/`fast-agent-mcp` already
+exist on PyPI, and it is not affiliated with them.
 
 ## Releasing
 
@@ -288,7 +290,7 @@ Releases publish to PyPI automatically via
 (OIDC — no API tokens stored anywhere):
 
 1. One-time: on pypi.org → *Publishing*, add a pending publisher for project
-   `fastagent-framework` pointing at this repo and `publish.yml`, environment `pypi`.
+   `agentyodha` pointing at this repo and `publish.yml`, environment `pypi`.
 2. Bump `version` in `pyproject.toml` and update `CHANGELOG.md`.
 3. Create a GitHub Release with tag `vX.Y.Z` — CI builds, validates
    (`twine check` + offline tests), and publishes.

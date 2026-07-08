@@ -6,7 +6,7 @@ import ast
 import operator
 from typing import Literal
 
-from fastagent import tool
+from agentyodha import tool
 
 _OPS = {
     ast.Add: operator.add,

@@ -5,7 +5,7 @@ model, tools, and guardrails; you can send prompts, inspect tool calls,
 token usage, and guardrail verdicts, and run the agent's test suite, all
 from the browser.
 
-    fastagent serve --tools-module examples.tools
+    agentyodha serve --tools-module examples.tools
     # -> http://127.0.0.1:8420
 
 Binds to 127.0.0.1 by default; this is a developer tool, not a production
@@ -23,9 +23,9 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any, Optional
 from urllib.parse import parse_qs, urlparse
 
-from fastagent.agent import Agent
-from fastagent.config import FrameworkConfig
-from fastagent.testing import AgentTester, TestCase
+from agentyodha.agent import Agent
+from agentyodha.config import FrameworkConfig
+from agentyodha.testing import AgentTester, TestCase
 
 MAX_BODY_BYTES = 1 * 1024 * 1024  # 1 MB request cap
 
@@ -224,7 +224,7 @@ PAGE = """<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>fastagent — Agent Swagger</title>
+<title>agentyodha — Agent Swagger</title>
 <style>
   :root { --bg:#0f1117; --panel:#181b24; --border:#2a2f3d; --text:#e6e9f0; --dim:#8b93a7;
           --accent:#6ea8fe; --ok:#4ade80; --bad:#f87171; --warn:#fbbf24; }
@@ -262,7 +262,7 @@ PAGE = """<!doctype html>
 </style>
 </head>
 <body>
-<header><h1>fastagent</h1><span>Agent Swagger — explore, invoke, and test your agents</span></header>
+<header><h1>agentyodha</h1><span>Agent Swagger — explore, invoke, and test your agents</span></header>
 <main>
   <div id="sidebar"></div>
   <div id="panel">
@@ -283,8 +283,8 @@ const $ = id => document.getElementById(id);
 
 // Session token: taken from the URL printed at server start, kept for the tab.
 const TOKEN = new URLSearchParams(location.search).get('token')
-  || sessionStorage.getItem('fastagent_token') || '';
-if (TOKEN) sessionStorage.setItem('fastagent_token', TOKEN);
+  || sessionStorage.getItem('agentyodha_token') || '';
+if (TOKEN) sessionStorage.setItem('agentyodha_token', TOKEN);
 const authHeaders = TOKEN ? {'Authorization': 'Bearer ' + TOKEN} : {};
 
 async function api(path, options = {}) {

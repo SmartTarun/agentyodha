@@ -1,4 +1,4 @@
-# fastagent configuration
+# agentyodha configuration
 # `defaults` merge into every agent; each agent can override any field.
 
 # LLM backends. "anthropic" exists implicitly; add any OpenAI-compatible
@@ -31,7 +31,7 @@ agents:
       You are a precise, helpful assistant. Use your tools when they help,
       answer directly when they don't. Keep responses concise.
     tools: [calculate, get_weather]
-    memory_dir: .fastagent/sessions
+    memory_dir: .agentyodha/sessions
     guardrails:
       input:
         - type: prompt_injection
@@ -49,14 +49,14 @@ agents:
       max_tool_calls_per_run: 10
       max_tokens_per_session: 500000
       max_runs_per_minute: 20
-    audit_dir: .fastagent/audit   # tamper-evident hash-chained trail; verify with `fastagent audit`
+    audit_dir: .agentyodha/audit   # tamper-evident hash-chained trail; verify with `agentyodha audit`
 
   summarizer:
     system: Summarize any text the user provides in at most 3 bullet points.
     effort: low
     max_tokens: 2000
 
-# Declarative test suites — run with: fastagent test [agent]
+# Declarative test suites — run with: agentyodha test [agent]
 # `repeat` reruns a case; confidence = passes / runs.
 tests:
   assistant:

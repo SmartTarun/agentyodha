@@ -3,9 +3,8 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-# Distribution name: "fastagent" is already taken on PyPI, so the package
-# publishes as fastagent-framework while the import stays `import fastagent`.
-name = "fastagent-framework"
+# agentyodha — "yodha" is Sanskrit for warrior. Distribution and import name match.
+name = "agentyodha"
 version = "0.1.0"
 description = "A lightweight, configuration-first framework for building, testing, and securing LLM-powered agents"
 readme = "README.md"
@@ -32,19 +31,19 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/YOURUSER/fastagent"
-Repository = "https://github.com/YOURUSER/fastagent"
-Issues = "https://github.com/YOURUSER/fastagent/issues"
-Changelog = "https://github.com/YOURUSER/fastagent/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/SmartTarun/agentyodha"
+Repository = "https://github.com/SmartTarun/agentyodha"
+Issues = "https://github.com/SmartTarun/agentyodha/issues"
+Changelog = "https://github.com/SmartTarun/agentyodha/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
 
 [project.scripts]
-fastagent = "fastagent.cli:main"
+agentyodha = "agentyodha.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["fastagent*"]
+include = ["agentyodha*"]
 
 [tool.setuptools.package-data]
-fastagent = ["py.typed"]
+agentyodha = ["py.typed"]

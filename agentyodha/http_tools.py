@@ -1,7 +1,7 @@
 """Declarative HTTP endpoint tools: connect an agent to YOUR API with zero code.
 
 Most teams point agents at their own services. Instead of writing a Python
-function per route, declare the endpoint once in fastagent.yaml and each
+function per route, declare the endpoint once in agentyodha.yaml and each
 operation becomes a registered tool an agent can use by name:
 
     endpoints:
@@ -47,14 +47,14 @@ from urllib.parse import quote
 import httpx
 from pydantic import BaseModel, Field
 
-from fastagent.security import (
+from agentyodha.security import (
     EndpointSecurityError,
     redact,
     resolve_api_key,
     validate_base_url,
     validate_tls,
 )
-from fastagent.tools import Tool, registry
+from agentyodha.tools import Tool, registry
 
 MAX_RESPONSE_CHARS_DEFAULT = 50_000
 _ALLOWED_METHODS = {"GET", "POST", "PUT", "PATCH", "DELETE"}

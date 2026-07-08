@@ -1,4 +1,4 @@
-"""Command-line interface: `fastagent chat <agent>` and `fastagent list`."""
+"""Command-line interface: `agentyodha chat <agent>` and `agentyodha list`."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import argparse
 import importlib
 import sys
 
-from fastagent.config import load_config
+from agentyodha.config import load_config
 
 
 def _import_tool_modules(modules: list[str]) -> None:
@@ -74,7 +74,7 @@ def cmd_chat(args: argparse.Namespace) -> int:
 
 
 def cmd_test(args: argparse.Namespace) -> int:
-    from fastagent.testing import AgentTester, TestCase
+    from agentyodha.testing import AgentTester, TestCase
 
     config = load_config(args.config)
     if args.tools_module:
@@ -101,7 +101,7 @@ def cmd_test(args: argparse.Namespace) -> int:
 
 
 def cmd_serve(args: argparse.Namespace) -> int:
-    from fastagent.playground import serve
+    from agentyodha.playground import serve
 
     config = load_config(args.config)
     if args.tools_module:
@@ -111,7 +111,7 @@ def cmd_serve(args: argparse.Namespace) -> int:
 
 
 _INIT_CONFIG = """\
-# fastagent project — see README at https://your-repo for full reference.
+# agentyodha project — see README at https://your-repo for full reference.
 providers:
   anthropic:
     type: anthropic            # uses ANTHROPIC_API_KEY / `ant auth login`
@@ -141,8 +141,8 @@ agents:
   assistant:
     system: You are a precise, helpful assistant.
     tools: [greet]             # from tools.py; add endpoint tool names here too
-    memory_dir: .fastagent/sessions
-    audit_dir: .fastagent/audit
+    memory_dir: .agentyodha/sessions
+    audit_dir: .agentyodha/audit
     guardrails:
       input:
         - {type: prompt_injection, action: block}
@@ -164,7 +164,7 @@ tests:
 _INIT_TOOLS = '''\
 """Project tools — plain functions; type hints + docstrings become the schema."""
 
-from fastagent import tool
+from agentyodha import tool
 
 
 @tool
@@ -178,7 +178,7 @@ def greet(name: str) -> str:
 '''
 
 _INIT_ENV = """\
-# Copy to your shell / secrets manager — fastagent never reads keys from YAML.
+# Copy to your shell / secrets manager — agentyodha never reads keys from YAML.
 ANTHROPIC_API_KEY=
 # MY_API_KEY=
 # OPENAI_API_KEY=
@@ -188,7 +188,7 @@ _INIT_GITIGNORE = """\
 __pycache__/
 *.pyc
 .venv/
-.fastagent/
+.agentyodha/
 .env
 """
 
@@ -199,7 +199,7 @@ def cmd_init(args: argparse.Namespace) -> int:
     target = Path(args.directory)
     target.mkdir(parents=True, exist_ok=True)
     files = {
-        "fastagent.yaml": _INIT_CONFIG,
+        "agentyodha.yaml": _INIT_CONFIG,
         "tools.py": _INIT_TOOLS,
         ".env.example": _INIT_ENV,
         ".gitignore": _INIT_GITIGNORE,
@@ -215,9 +215,9 @@ def cmd_init(args: argparse.Namespace) -> int:
         "\nNext steps:\n"
         f"  cd {target}\n"
         "  set ANTHROPIC_API_KEY (see .env.example)\n"
-        "  fastagent chat assistant --tools-module tools\n"
-        "  fastagent test assistant --tools-module tools\n"
-        "  fastagent serve --tools-module tools     # Agent Swagger playground"
+        "  agentyodha chat assistant --tools-module tools\n"
+        "  agentyodha test assistant --tools-module tools\n"
+        "  agentyodha serve --tools-module tools     # Agent Swagger playground"
     )
     return 0
 
@@ -225,7 +225,7 @@ def cmd_init(args: argparse.Namespace) -> int:
 def cmd_audit(args: argparse.Namespace) -> int:
     from pathlib import Path
 
-    from fastagent.agent_security import AuditLog
+    from agentyodha.agent_security import AuditLog
 
     target = Path(args.path)
     files = sorted(target.glob("*.audit.jsonl")) if target.is_dir() else [target]
@@ -245,11 +245,11 @@ def cmd_audit(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="fastagent", description="Run configurable Claude agents.")
-    parser.add_argument("--config", default="fastagent.yaml", help="Path to the YAML config file")
+    parser = argparse.ArgumentParser(prog="agentyodha", description="Run configurable Claude agents.")
+    parser.add_argument("--config", default="agentyodha.yaml", help="Path to the YAML config file")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    p_init = subparsers.add_parser("init", help="Scaffold a new fastagent project")
+    p_init = subparsers.add_parser("init", help="Scaffold a new agentyodha project")
     p_init.add_argument("directory", nargs="?", default=".", help="Target directory (default: .)")
     p_init.set_defaults(func=cmd_init)
 

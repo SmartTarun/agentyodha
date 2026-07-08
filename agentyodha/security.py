@@ -1,4 +1,4 @@
-"""Endpoint security: hardening the connection between fastagent and any LLM API.
+"""Endpoint security: hardening the connection between agentyodha and any LLM API.
 
 Enforced policies:
 - **No secrets in config files.** Providers reference credentials by environment
@@ -104,7 +104,7 @@ def resolve_api_key(env_name: Optional[str]) -> Optional[str]:
     if not value:
         raise EndpointSecurityError(
             f"Environment variable {env_name!r} is not set. Export it before "
-            "starting the agent; fastagent never reads keys from config files."
+            "starting the agent; agentyodha never reads keys from config files."
         )
     return value
 

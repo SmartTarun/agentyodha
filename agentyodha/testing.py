@@ -1,6 +1,6 @@
 """Agent test harness: declarative test cases with assertions and confidence scores.
 
-Like unit tests for HTTP APIs, but for agents. Cases live in fastagent.yaml:
+Like unit tests for HTTP APIs, but for agents. Cases live in agentyodha.yaml:
 
     tests:
       assistant:
@@ -27,7 +27,7 @@ from typing import Any, Callable, Optional
 
 from pydantic import BaseModel, Field
 
-from fastagent.agent import Agent, AgentResult
+from agentyodha.agent import Agent, AgentResult
 
 
 class Expectation(BaseModel):

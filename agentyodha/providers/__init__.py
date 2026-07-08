@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from fastagent.providers.base import CompletionRequest, ModelProvider, ProviderResponse
-from fastagent.providers.anthropic_provider import AnthropicProvider
+from agentyodha.providers.base import CompletionRequest, ModelProvider, ProviderResponse
+from agentyodha.providers.anthropic_provider import AnthropicProvider
 
 __all__ = [
     "AnthropicProvider",
@@ -15,11 +15,11 @@ __all__ = [
 
 
 def build_provider(provider_config) -> ModelProvider:
-    """Instantiate a provider from a fastagent.config.ProviderConfig."""
+    """Instantiate a provider from a agentyodha.config.ProviderConfig."""
     if provider_config.type == "anthropic":
         return AnthropicProvider(timeout=provider_config.timeout_seconds)
     if provider_config.type == "openai_compatible":
-        from fastagent.providers.openai_compat import OpenAICompatProvider
+        from agentyodha.providers.openai_compat import OpenAICompatProvider
 
         if not provider_config.base_url:
             raise ValueError("openai_compatible providers require a base_url.")

@@ -1,11 +1,13 @@
 # Changelog
 
-All notable changes to fastagent are documented here.
+All notable changes to agentyodha are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/) style; versions follow [SemVer](https://semver.org/).
 
 ## [0.1.0] — 2026-07-07
 
-Initial public release.
+Initial public release. (Developed under the working name "fastagent";
+released as **agentyodha** — *yodha* is Sanskrit for "warrior" — since the
+fastagent name is taken on PyPI.)
 
 ### Added
 - **Core**: provider-agnostic agentic loop — streaming, tool use with parallel

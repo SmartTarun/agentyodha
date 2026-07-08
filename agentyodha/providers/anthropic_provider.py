@@ -12,7 +12,7 @@ from typing import Any, Optional, Type, TypeVar
 import anthropic
 from pydantic import BaseModel
 
-from fastagent.providers.base import CompletionRequest, ModelProvider, ProviderResponse
+from agentyodha.providers.base import CompletionRequest, ModelProvider, ProviderResponse
 
 T = TypeVar("T", bound=BaseModel)
 

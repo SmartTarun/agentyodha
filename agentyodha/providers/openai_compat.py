@@ -26,8 +26,8 @@ from typing import Any, Optional, Type, TypeVar
 import httpx
 from pydantic import BaseModel
 
-from fastagent.providers.base import CompletionRequest, ModelProvider, ProviderResponse
-from fastagent.security import redact, resolve_api_key, validate_base_url, validate_tls
+from agentyodha.providers.base import CompletionRequest, ModelProvider, ProviderResponse
+from agentyodha.security import redact, resolve_api_key, validate_base_url, validate_tls
 
 T = TypeVar("T", bound=BaseModel)
 

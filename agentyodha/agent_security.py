@@ -1,6 +1,6 @@
 """Agent-layer security: permissions, budgets, and a tamper-evident audit trail.
 
-Where fastagent.security hardens the *connection to the LLM endpoint*, this
+Where agentyodha.security hardens the *connection to the LLM endpoint*, this
 module hardens the *agent itself*:
 
 - **PermissionPolicy** — per-tool allow / deny / ask, declared in YAML. A

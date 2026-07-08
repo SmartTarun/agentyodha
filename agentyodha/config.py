@@ -1,6 +1,6 @@
 """Configuration models and YAML loading.
 
-An agent is defined declaratively in `fastagent.yaml`:
+An agent is defined declaratively in `agentyodha.yaml`:
 
     defaults:
       model: claude-opus-4-8
@@ -101,9 +101,9 @@ class FrameworkConfig(BaseModel):
     defaults: dict = Field(default_factory=dict)
     providers: dict[str, ProviderConfig] = Field(default_factory=dict)
     agents: dict[str, AgentConfig] = Field(default_factory=dict)
-    # endpoints: name -> raw endpoint spec (parsed and registered by fastagent.http_tools)
+    # endpoints: name -> raw endpoint spec (parsed and registered by agentyodha.http_tools)
     endpoints: dict[str, dict] = Field(default_factory=dict)
-    # tests: agent name -> list of raw test-case dicts (parsed by fastagent.testing)
+    # tests: agent name -> list of raw test-case dicts (parsed by agentyodha.testing)
     tests: dict[str, list[dict]] = Field(default_factory=dict)
 
     def get_agent(self, name: str) -> AgentConfig:
@@ -123,21 +123,21 @@ class FrameworkConfig(BaseModel):
 
     def build_agent(self, name: str, **agent_kwargs):
         """Construct an Agent with its configured provider wired in."""
-        from fastagent.agent import Agent
-        from fastagent.providers import build_provider
+        from agentyodha.agent import Agent
+        from agentyodha.providers import build_provider
 
         agent_config = self.get_agent(name)
         provider = build_provider(self.get_provider(agent_config.provider))
         return Agent(agent_config, provider=provider, **agent_kwargs)
 
 
-def load_config(path: str | Path = "fastagent.yaml") -> FrameworkConfig:
+def load_config(path: str | Path = "agentyodha.yaml") -> FrameworkConfig:
     """Load a FrameworkConfig from YAML, merging `defaults` into every agent."""
     path = Path(path)
     raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
 
     # Security gate: refuse configs that embed credentials
-    from fastagent.security import assert_no_inline_secrets
+    from agentyodha.security import assert_no_inline_secrets
 
     assert_no_inline_secrets(raw, path=str(path))
 
@@ -154,7 +154,7 @@ def load_config(path: str | Path = "fastagent.yaml") -> FrameworkConfig:
     endpoints_raw: dict = raw.get("endpoints") or {}
     if endpoints_raw:
         # Declarative HTTP tools: validate + register so agents can use them by name
-        from fastagent.http_tools import build_endpoint_tools
+        from agentyodha.http_tools import build_endpoint_tools
 
         build_endpoint_tools(endpoints_raw)
 

@@ -2,7 +2,7 @@
 
 The Claude API is stateless, so multi-turn agents must resend history each
 request. ConversationStore saves that history to disk so a session can be
-resumed later (`fastagent chat assistant --session my-task`).
+resumed later (`agentyodha chat assistant --session my-task`).
 """
 
 from __future__ import annotations

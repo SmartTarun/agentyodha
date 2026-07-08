@@ -3,9 +3,9 @@ name: Publish to PyPI
 # Publishes when you create a GitHub Release (tag like v0.1.0).
 # Uses PyPI Trusted Publishing (OIDC) — no API token stored anywhere.
 # One-time setup on pypi.org: Account -> Publishing -> add a "pending publisher"
-#   project:  fastagent-framework
+#   project:  agentyodha
 #   owner:    <your GitHub username>
-#   repo:     fastagent
+#   repo:     agentyodha
 #   workflow: publish.yml
 #   environment: pypi
 

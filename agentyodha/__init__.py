@@ -1,8 +1,8 @@
-"""fastagent — a lightweight, configuration-first framework for Claude-powered agents."""
+"""agentyodha — a lightweight, configuration-first framework for Claude-powered agents."""
 
-from fastagent.agent import Agent, AgentResult
-from fastagent.agent_security import AuditLog, BudgetTracker, PermissionPolicy
-from fastagent.config import (
+from agentyodha.agent import Agent, AgentResult
+from agentyodha.agent_security import AuditLog, BudgetTracker, PermissionPolicy
+from agentyodha.config import (
     AgentConfig,
     BudgetSpec,
     FrameworkConfig,
@@ -11,12 +11,12 @@ from fastagent.config import (
     ProviderConfig,
     load_config,
 )
-from fastagent.guardrails import Guard, GuardResult, build_guards
-from fastagent.memory import ConversationStore
-from fastagent.providers import AnthropicProvider, ModelProvider, build_provider
-from fastagent.security import EndpointSecurityError
-from fastagent.testing import AgentTester, Expectation, TestCase
-from fastagent.tools import Tool, registry, tool
+from agentyodha.guardrails import Guard, GuardResult, build_guards
+from agentyodha.memory import ConversationStore
+from agentyodha.providers import AnthropicProvider, ModelProvider, build_provider
+from agentyodha.security import EndpointSecurityError
+from agentyodha.testing import AgentTester, Expectation, TestCase
+from agentyodha.tools import Tool, registry, tool
 
 __version__ = "0.1.0"
 __author__ = "Tarun Vangari"
