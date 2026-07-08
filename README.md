@@ -263,6 +263,11 @@ agentyodha/
 python tests/test_smoke.py   # offline tests, no API key needed
 ```
 
+Building your first agent? Follow the step-by-step
+**[operational runbook](docs/RUNBOOK.md)** — install → scaffold → secure →
+test → playground → ship, with expected results, troubleshooting, and rollback
+for every step.
+
 Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for the
 architecture map and the supported extension points (custom providers, guards,
 tools, and test assertions). Security reports: [SECURITY.md](SECURITY.md).
